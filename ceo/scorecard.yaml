@@ -1,0 +1,129 @@
+# MedicalCity — Scorecard Président (huddle + AGE)
+# STRICTEMENT CONFIDENTIEL · 2026-08-20
+# Les 8 chiffres du matin + seuils. Pas de données de santé ici.
+
+meta:
+  company: MEDICALCITY
+  owner: age-comex
+  reviewed_by: Président
+  cadence: daily_huddle
+  timezone: Europe/Paris
+
+fundamentals:
+  - id: safety
+    hospital_analog: Intermountain "safety"
+    meaning: "Personne, robot, donnée"
+  - id: quality
+    hospital_analog: Intermountain "quality"
+    meaning: "HITL, evals, intended use"
+  - id: access
+    hospital_analog: Intermountain "access"
+    meaning: "APA, CD77, pré-réservations"
+  - id: stewardship
+    hospital_analog: Intermountain "stewardship"
+    meaning: "Runway, COGS, stop-doing, temps Président"
+
+huddle_8:
+  - id: incidents_open
+    label: "P0/P1 ouverts"
+    fundamental: safety
+    owner: ops
+    red: "> 0 P0, or P1 age_hours > 72"
+    ceo_action: "P0: casser l'OS. P1: allouer, ne pas investiguer soi-même."
+  - id: hitl_sla
+    label: "HITL hors SLA"
+    fundamental: quality
+    owner: age-comex
+    red: "RECOMMENDED unanswered > 48h or any decision without WORM"
+    ceo_action: "File 07:45. Silence = non."
+  - id: platform_ci
+    label: "CI / Bayon"
+    fundamental: quality
+    owner: plat
+    red: "main red > 24h"
+    ceo_action: "Demander cause + ETA, pas un debug."
+  - id: runway_days
+    label: "Runway (jours)"
+    fundamental: stewardship
+    owner: cfo
+    red: "< 180 days without term-sheet"
+    ceo_action: "Lundi: lire le chiffre à voix haute. < 180: Comex extra capital."
+  - id: cd77_blocker
+    label: "Blocker #1 CD77"
+    fundamental: access
+    owner: gtm
+    red: "no named blocker or no dated next step"
+    ceo_action: "Si toi es le blocker (signature, RDV), c'est priorité #1."
+  - id: apa_hitl_queue
+    label: "File APA humaine"
+    fundamental: access
+    owner: plat
+    red: "queue > SLA or 0 real files with no plan at J90"
+    ceo_action: "Trancher protocole, pas instruire le dossier."
+  - id: fleet_sla
+    label: "Dispo flotte"
+    fundamental: safety
+    owner: ops
+    red: "below written SLA when live; N/A until go-live"
+    ceo_action: "N/A en H0 sauf pré-prod. Dès live: P1 si sous SLA."
+  - id: ceo_blocks_yesterday
+    label: "Blocs Président hier"
+    fundamental: stewardship
+    owner: age-comex
+    red: "protected block missed"
+    ceo_action: "Replanifier cette semaine, pas 'rattraper le week-end'."
+
+weekly_extra:
+  - id: preresevations
+    label: "Pré-réservations robots"
+    owner: gtm
+    baseline: 205
+    target_18m: 400
+    red: "inbound conversion dead > 14d"
+  - id: pipeline_departements
+    label: "Départements actifs"
+    owner: gtm
+    red: "< 5 named accounts"
+  - id: hds_milestone
+    label: "Jalon HDS"
+    owner: care
+    red: "slip > 14d"
+  - id: aiact_register_alive
+    label: "Registre AI Act vivant"
+    owner: care
+    red: "prod system not listed"
+  - id: unit_economics
+    label: "LTV/CAC RaaS (COGS réels)"
+    owner: cfo
+    target: "> 5x documented"
+    red: "< 3x or COGS unknown"
+  - id: stopdoing_hours
+    label: "Heures Président hors 12 sujets"
+    owner: strat
+    red: "> 2h / week"
+  - id: rounding_done
+    label: "Contact terrain"
+    owner: ops
+    red: "0 / week"
+  - id: ceo_os
+    label: "OS Président"
+    owner: age-comex
+    targets:
+      protected_blocks_held: 3
+      huddles_held: 4
+      recommended_breaches: 0
+
+quality_internal:
+  name: Qualiscope MedicalCity (miniature)
+  inspired_by: Ramsay Qualiscope
+  rules:
+    - "Politique qualité 1 page signée"
+    - "0 claim clinique non signé Président"
+    - "0 décision agent sans WORM"
+    - "0 donnée de santé hors France / hors base légale"
+    - "CAPA P1 < 72 h"
+
+alerts:
+  p0_notify: "Président the same day — Cleveland Clinic / hospital CEO checklist"
+  silence_is_not_consent: true
+  no_health_data_in_this_file: true
