@@ -1,0 +1,80 @@
+# MedicalCity — modèle cash H0 (90 jours)
+# STRICTEMENT CONFIDENTIEL · 2026-08-20
+# Aucune donnée de santé. Hypothèses à écraser dès le 1er BC réel.
+
+meta:
+  owner: cfo
+  closer: president
+  start: 2026-08-24
+  horizon_days: 90
+  currency: EUR_HT
+
+doctrine:
+  cash_rail: "software + intellectual services (Bayon, APA HITL, audit)"
+  scale_rail: "RaaS + APA plan d'aide — Q1 2027, not Q3 2026"
+  public_instrument: "CCP R.2122-8 — supplies/services without advertising up to 60_000 HT since 2026-04-01"
+  forbidden:
+    - robot_lease_before_ops_golive
+    - non_refundable_robot_deposit
+    - sap_tax_credit_promise_without_agrement
+    - related_party_geovtc_revenue
+    - apa_pays_100_percent_claim
+
+skus:
+  MC-AUDIT:
+    price: 8500
+    billing: [0.5, 0.5]
+    cycle_days: 15
+    target_count: 6
+    contracted: 51000
+  MC-APA:
+    setup: 3500
+    mrr: 890
+    commitment_months: 3
+    target_count: 3
+    contracted_setup: 10500
+    contracted_mrr_90d: 8010  # 3 * 890 * 3
+  MC-BAYON:
+    price: 22000
+    billing: [0.4, 0.4, 0.2]
+    cycle_weeks: 8
+    target_count: 2
+    contracted: 44000
+  MC-77:
+    price_min: 48000
+    price_max: 58000
+    price_plan: 54000
+    ceiling: 60000
+    target_count: 1
+    vehicle: "marche sans publicite ni mise en concurrence"
+
+targets_90d:
+  first_invoice_day: 14
+  first_cash_in_day: 45
+  contracted_min: 80000
+  contracted_stretch: 150000
+  collected_min: 40000
+  collected_stretch: 80000
+  robots_delivered: 0
+
+plan_mix_base:
+  # 6*8500 + 10500 + 8010 + 2*22000 + 54000 = 51100+10500+8010+44000+54000 = 167610 stretch if all land
+  # Base case (not all close):
+  audits: 4              # 34000
+  apa_subs: 1            # 3500+2670
+  bayon: 1               # 22000
+  cd77: 1                # 54000
+  contracted_base: 116170
+  collected_base_note: "Expect 40-70% of contracted in 90d (Chorus Pro lag on MC-77)"
+
+red_flags:
+  - "J21: zero invoice issued"
+  - "J45: no CD77 path and no SAD purchase order"
+  - "any robot cash collected"
+  - "open quotes stale > 14d"
+
+huddle_extra:
+  - open_quotes_count_and_eur
+  - invoiced_mtd
+  - collected_mtd
+  - cd77_next_step_dated
