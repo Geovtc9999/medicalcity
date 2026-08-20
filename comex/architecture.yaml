@@ -1,0 +1,115 @@
+# MedicalCity — Architecture du Comex d'agents IA exécutifs
+# Charte opérationnelle · août 2026 · STRICTEMENT CONFIDENTIEL
+# Alignée sur les 4 piliers MedicalCity, le framework SMCI (GEOVTC)
+# et les niveaux HITL de Bayon (AUTO / RECOMMENDED / MANDATORY).
+
+meta:
+  company: MEDICALCITY
+  legal_form: SASU
+  siren: "107542565"
+  hq: 66 avenue des Champs-Élysées, 75008 Paris
+  president: Richard YI
+  care_cofounder: Sreypov UM
+  version: "1.0"
+  date: 2026-08-20
+
+principles:
+  - "Le Président reste le seul organe légal ; les agents n'ont aucun pouvoir de signature."
+  - "Séparation des pouvoirs : l'AGE n'auto-valide jamais un livrable critique."
+  - "HITL par criticité, calé sur Bayon : AUTO / RECOMMENDED / MANDATORY."
+  - "Un siège Comex = un mandat MECE, un pack hebdo, un KPI owner."
+  - "Mémoire unique (Git) : décisions, packs, risques, OKR versionnés."
+  - "Multi-vendor (Claude, OpenAI, Kimi, etc.) — pas de lock-in modèle."
+  - "Souveraineté : données de santé en France, HDS-ready, RGPD by design."
+
+governance_layers:
+  - id: L0
+    name: Humains — intention, veto, signature
+    members:
+      - { role: Président, person: Richard YI, powers: [signature, representation, levée, veto] }
+      - { role: Care & field, person: Sreypov UM, powers: [qualité_terrain, contenu, ops_care] }
+  - id: L1
+    name: AGE-COMEX — orchestrateur
+    agent: age-comex
+  - id: L2
+    name: Comex — 7 sièges exécutifs
+    seats: [age-comex, plat, care, cfo, gtm, ops, strat]
+  - id: L3
+    name: Agents métier (non votants)
+    agents: [apa, bayon, raas-config, drones, ir, dpo]
+  - id: L4
+    name: Systèmes
+    systems: [bayon-mdm, fhir-r4, medicalcity-ai, data-room, hds, erp]
+
+hitl:
+  AUTO:
+    description: Exécution sans validation a priori ; audit a posteriori.
+    examples:
+      - Pack KPI hebdomadaire
+      - Compte-rendu de Comex
+      - Veille concurrentielle
+      - Relances pipeline (hors institutionnel)
+  RECOMMENDED:
+    description: L'agent propose ; le Président (ou délégué) confirme sous 48 h. Silence ≠ accord.
+    examples:
+      - Pricing RaaS hors grille
+      - Séquence GTM d'un nouveau département
+      - JD et short-list de recrutement
+      - Arbitrage backlog produit
+  MANDATORY:
+    description: Aucune action tant que l'humain n'a pas signé. Journal WORM.
+    examples:
+      - Contrats, LOI, avenants
+      - Term-sheet et data room investisseur
+      - Protocoles cliniques / MDR / ANSM
+      - Traitement de données de santé (base légale, DPA)
+      - Communication presse et claims médicaux
+      - CAPEX > 10 k€ ou engagement > 12 mois
+
+cadence:
+  daily:
+    duration_min: 15
+    owner: ops
+    artifact: standup.md
+    attendees: [ops, plat, care]
+  weekly_comex:
+    duration_min: 90
+    owner: age-comex
+    artifact: packs/YYYY-Www.md
+    attendees: [age-comex, plat, care, cfo, gtm, ops, strat]
+    agenda:
+      - { min: 10, item: "Faits de la semaine + KPI flash" }
+      - { min: 15, item: "Chantier PMF (APA, Bayon, pilote CD77)" }
+      - { min: 15, item: "Chantier GTM (pipeline départements, pré-réservations)" }
+      - { min: 15, item: "Chantier Trust (HDS, AI Act, incidents)" }
+      - { min: 15, item: "Chantier Capital (runway, data room, tour)" }
+      - { min: 10, item: "Décisions MANDATORY à faire signer" }
+      - { min: 10, item: "OKR et risques — escalade Président" }
+  monthly_quality:
+    duration_min: 60
+    owner: care
+    artifact: quality/YYYY-MM.md
+  monthly_risk:
+    duration_min: 60
+    owner: cfo
+    artifact: risk/YYYY-MM.md
+  quarterly_strategy:
+    duration_min: 240
+    owner: strat
+    attendees_human: [Richard YI, Sreypov UM]
+    artifact: strategy/YYYY-Qn.md
+
+okrs_horizon_18m:
+  pmf:
+    - "Pilote CD77 signé et live au Q1 2027 (SLA 24/7, n sites, NPS aidants)"
+    - "Agent APA : 1er dossier bout-en-bout instruit HITL en conditions réelles"
+    - "Bayon : golden record FHIR R4 branché sur ≥ 1 source institutionnelle"
+  gtm:
+    - "Playbook département reproductible ; 5 LOI additionnelles"
+    - "Pré-réservations robots > 400, taux de conversion LOI→contrat > 30 %"
+  trust:
+    - "Dossier HDS lancé ; registre AI Act (classification, logs, evals) vivant"
+    - "Comité médical français nommé ; 0 incident critique non clos sous 72 h"
+  capital:
+    - "Tour seed 5 M€ clos ou term-sheet signé"
+    - "Runway ≥ 18 mois post-tour ; unit economics RaaS LTV/CAC > 5× documenté"
