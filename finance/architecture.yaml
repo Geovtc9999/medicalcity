@@ -1,0 +1,93 @@
+# MedicalCity — architecture financière (CFO)
+# STRICTEMENT CONFIDENTIEL · 2026-09-01
+# Aucune donnée de santé. Hypothèses fer à écraser dès devis OPS.
+
+meta:
+  company: MEDICALCITY
+  legal_form: SASU
+  siren: "107542565"
+  capital_social_eur: 1299
+  president: Richard YI
+  version: "1.0"
+  date: 2026-09-01
+  currency: EUR_HT
+
+doctrine:
+  - "Four products, four buyers — never mix in one meeting."
+  - "Equity funds uncertainty (PMF, Trust, GTM). Debt funds iron that already rents."
+  - "Do not buy the fleet with seed beyond 25-40% equity slice."
+  - "France only. No offshore SPV. No token. No uncontracted RaaS ARR."
+  - "No health data in FleetCo or lender files."
+
+entities:
+  H0:
+    - id: HOLDCO
+      legal: "MedicalCity SASU (single entity)"
+      books_axes: [PLAT, FLEET, CARE]
+      products: [P1, P2]
+      note: "FLEET axis stays at 0 until OPS go-live"
+  H1:
+    trigger:
+      all_of:
+        - "pilot go-live OR vendor term-sheet"
+        - "hardware payback_months <= 24 at actual COGS"
+    entities:
+      - id: HOLDCO
+        owns: [OPCO, FLEETCO]
+        products: [P1]
+      - id: OPCO
+        role: "software, HITL, SLA, DPA, origination, servicer"
+        products: [P2, P3_service]
+      - id: FLEETCO
+        role: "robots + assigned rents; no employees; no health data"
+        products: [P4]
+  H2:
+    trigger: ">= 200 performing units and 12 months seasoning"
+    add: ["warehouse revolving", "private notes — no public offer"]
+
+products:
+  P1_equity:
+    instrument: ["BSA-AIR", "ordinary shares seed"]
+    buyer: ["BA", "family office", "health VC"]
+    ticket_air_eur: [50000, 250000]
+    seed_target_eur: 5000000
+    use_of_proceeds:
+      pmf_product: 0.40
+      trust: 0.20
+      gtm_plus_fleet_equity_slice: 0.25
+      ga_runway: 0.15
+  P2_software_ar:
+    instrument: "Dailly bordereau CMF L.313-23"
+    buyer: "credit institution"
+    advance_b2b: [0.70, 0.80]
+    advance_b2g: [0.60, 0.70]
+    eligible_skus: [MC-AUDIT, MC-APA, MC-BAYON, MC-77]
+    forbidden: ["LOI", "pre-reservation", "unissued invoice"]
+  P3_raas_contract:
+    rent_eur_month: [350, 750]
+    vat: 0.20
+    tenor_months: [36, 60]
+    payers: ["APA if in plan d'aide", "reste a charge", "SAD"]
+    sap_tax_credit_50: "only after SAP declaration/agrement — do not sell before"
+  P4_fleet_facility:
+    buyer: ["French lessor", "warehouse lender", "private note H2"]
+    advance_unseasoned: 0.55
+    advance_seasoned_6m: 0.70
+    dscr_min: 1.40
+    cash_trap_dscr: 1.25
+    reserve_months: 4
+    max_one_department: 0.35
+    max_one_obligor: 0.015
+    servicer_fee: [0.08, 0.12]
+    residual_haircut: [0.10, 0.20]
+
+comparables_not_copied:
+  copy: ["vendor leasing (Verso, BPCE Lease, imaging OEMs)", "medical equipment ABS only at H2 scale"]
+  reject: ["offshore SPV", "public ABS year 1", "CLARITY Act token"]
+
+kpis_cfo:
+  - cash_runway_weeks
+  - p2_dso
+  - fleet_axis_must_be_zero_pre_golive
+  - hardware_payback_months
+  - contracted_raas_arr_only
