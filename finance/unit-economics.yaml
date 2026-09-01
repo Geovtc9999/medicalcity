@@ -1,0 +1,53 @@
+# Underwriting RaaS — hypothèses maison · 2026-09-01
+# Écraser dès devis hardware OPS et COGS pilote réel.
+
+meta:
+  status: hypothesis
+  owner: cfo
+  must_validate: [robot_unit_cost, operator_cogs, insurance, cac_department]
+
+rent:
+  low: 350
+  mid: 550
+  high: 750
+  currency: EUR_HT_per_month
+  vat: 0.20
+
+apa_ceilings_2026:
+  GIR1: 2080.33
+  GIR2: 1682.30
+  GIR3: 1215.99
+  GIR4: 811.52
+  note: "APA is a plan d'aide, not a robot cheque. GIR4 pool cap 25% until RAC seasoned 6m."
+
+mid_case_550:
+  rent: 550
+  cogs_ops: 155
+  insurance_maintenance: 40
+  contribution_before_iron: 355
+  servicer_fee_10pct: 55
+  available_iron_and_holdco: 300
+  annual_available_iron: 3600
+
+hardware:
+  unit_cost_hypothesis: 8000
+  unit_cost_range: [6000, 12000]
+  install_included: true
+  payback_months_at_300: 26.7
+  payback_target: [18, 24]
+  scale_gate: "do not originate P4 if payback > 24 at actual COGS"
+
+fleet_50_units:
+  iron_total_at_8k: 400000
+  equity_slice_30pct: 120000
+  lessor_70pct: 280000
+  seed_must_not_fund: 400000
+
+ltv_cac:
+  target: 5.0
+  status: "forbidden to publish until departmental CAC measured"
+
+red:
+  - payback_gt_24
+  - gir4_share_gt_25_unseasoned
+  - uncontracted_arr_in_deck
