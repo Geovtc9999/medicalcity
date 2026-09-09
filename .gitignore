@@ -1,0 +1,8 @@
+# BMAD personal and generated output
+_bmad/config.user.toml
+_bmad-output/
+
+# Python
+__pycache__/
+.pytest_cache/
+.DS_Store
