@@ -5,3 +5,6 @@
 _bmad/custom/*.user.toml
 _bmad/render/*
 !_bmad/render/.gitignore
+
+# Verdent isolated worktrees
+.worktrees/
