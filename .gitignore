@@ -1,0 +1,10 @@
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
+
+# BMAD personal overrides and rendered skill snapshots
+_bmad/custom/*.user.toml
+_bmad/render/*
+!_bmad/render/.gitignore
+
+# Verdent isolated worktrees
+.worktrees/
