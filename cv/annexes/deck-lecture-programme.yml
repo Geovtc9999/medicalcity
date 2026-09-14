@@ -1,0 +1,131 @@
+# Deck 5 slides — « ma lecture du programme », pour l'entretien client.
+# Rendu : python3 tools/build_slides.py
+#
+# Règle de ce deck : un message d'action par slide, écrit dans le titre. Si le titre
+# est un thème (« Architecture ») et non une affirmation (« Le problème n'est pas
+# l'archivage »), la slide ne sert à rien. Rien à dire qui ne soit défendable.
+
+meta:
+  titre: E-Communications Recordkeeping & Reconciliation
+  sous_titre: Ma lecture du programme et ce que je proposerais pour le PoC
+  auteur: Richard YI — candidat Lead Solution Architect / Technical Lead
+  pied: Richard YI · lecture d'un candidat à partir de l'annonce · hypothèses à confirmer
+
+slides:
+  - kicker: Le sujet
+    titre: Le problème n'est pas l'archivage, c'est la preuve de complétude
+    intro: >
+      Une banque sait archiver. Ce qu'elle a du mal à prouver, c'est que tout ce qui devait être
+      capté l'a été. Trois questions gouvernent alors toute la conception.
+    cards:
+      - titre: Qui ?
+        texte: >
+          Quelle population devait être enregistrée, à quelle date, sur quels canaux.
+          Le mot « populations » de l'annonce est le signal fort : la difficulté est dans les
+          mouvements — arrivées, mobilités, départs, prestataires, comptes partagés.
+      - titre: Combien ?
+        texte: >
+          Combien de messages ont existé à la source, combien sont arrivés dans l'archive,
+          et que valent les écarts. Un décompte de source est une déclaration, jamais une vérité.
+      - titre: En combien de temps ?
+        texte: >
+          Retrouver et exporter un périmètre précis, complet, avec la preuve que rien n'a été
+          altéré, dans le délai imposé. C'est la retrievability, et elle se mesure.
+    note: >
+      Conséquence sur le rôle : le programme recrute un architecte data et réconciliation,
+      pas un ingénieur stockage. Tout ce qui ne sert pas ces trois questions sort du PoC.
+
+  - kicker: Architecture
+    titre: Une seule chaîne, six étages — et le socle est le périmètre attendu
+    steps:
+      - id: "0"
+        titre: Référentiels
+        texte: RH, annuaire/AD, entitlements Bloomberg, licences O365, liste supervisée → périmètre attendu versionné par jour
+      - id: "1"
+        titre: Captation
+        texte: journalisation Exchange/EXO · export Teams · flux Bloomberg IB & MSG — un contrat d'interface par source
+      - id: "2"
+        titre: Normalisation
+        texte: modèle canonique, résolution d'identité, dédoublonnage sans perte de la preuve de distribution
+      - id: "3"
+        titre: Réconciliation & contrôles
+        texte: trois niveaux + canaris, exceptions avec propriétaire et SLA
+      - id: "4"
+        titre: Archivage & immutabilité
+        texte: remise, accusé de prise en compte, stockage WORM des journaux et packs de preuve
+      - id: "5"
+        titre: Restitution & reporting
+        texte: recherche, export, couverture, complétude, pack de preuve auditeur
+    note: >
+      La plupart des programmes échouent parce qu'ils commencent à l'étage 1. Sans périmètre attendu
+      versionné par jour, la complétude n'a pas de dénominateur et aucun chiffre produit ensuite
+      n'est défendable devant un auditeur.
+
+  - kicker: Le cœur du poste
+    titre: Trois niveaux de réconciliation, jamais confondus dans un même indicateur
+    cards:
+      - titre: 1 · Populations
+        texte: >
+          Rapprochement RH / annuaire / entitlements / liste supervisée. Sorties : supervisés sans
+          captation, comptes orphelins, et surtout le délai entre l'événement RH et la prise d'effet
+          de la journalisation — c'est là que se logent la majorité des trous réels.
+      - titre: 2 · Volumétrie
+        texte: >
+          Compté à la source → ingéré → archivé et acquitté, par jour, par canal, par population.
+          Aucun écart n'est « acceptable » : il est expliqué, ou c'est une exception ouverte.
+      - titre: 3 · Fidélité
+        texte: >
+          Pièces jointes, fils et participants, éditions conservées comme versions, contenu lisible
+          et indexable, horodatage en UTC avec le décalage d'origine.
+    highlight:
+      titre: Plus une mesure qui ne dépend pas des sources — les canaris
+      texte: >
+        Des comptes de test émettent chaque jour, sur chaque canal, des messages synthétiques avec
+        pièce jointe, édition et suppression ; on vérifie leur arrivée dans l'archive et le délai.
+        Quand une source déclare un décompte faux, le canari le dit quand même. Et le contrôle du
+        contrôle : un contrôle qui n'a pas tourné doit être aussi visible qu'un contrôle en échec.
+
+  - kicker: Ce qui fait les six mois de retard
+    titre: Les pièges sont dans les sources, pas dans le pipeline
+    table:
+      head: [Source, Le piège, Conséquence sur la conception]
+      rows:
+        - - Exchange / EXO
+          - Cible de journal impossible dans une boîte Exchange Online ; copies par destinataire ; chiffrement et règles de transport
+          - Point de remise externe ou extraction API ; dédoublonnage qui préserve la preuve de distribution
+        - - Teams
+          - Messages éditables et supprimables ; pièces jointes dans SharePoint, pas dans le message ; canaux privés et invités
+          - Capture de versions obligatoire ; résolution des pièces jointes ; coût d'extraction à instruire tôt
+        - - Bloomberg
+          - "Tout est piloté par les entitlements : un départ retire l'accès, donc la source ; IB et MSG sont deux flux"
+          - Contrôle dédié aux départs ; rapprochement identité RH ↔ identifiant Bloomberg, cassé par toute mobilité
+        - - Transverse
+          - Horloges et fuseaux, arrivées tardives et rejeux, tension RGPD vs conservation, dépendance à un archiveur tiers (DORA)
+          - UTC + décalage conservé ; idempotence de bout en bout ; durées et accès outillés, pas seulement écrits
+    note: >
+      Ces pièges ne sont pas des détails d'implémentation : ils changent le dessin. Les découvrir en
+      recette coûte un trimestre ; les traiter au cadrage coûte deux ateliers.
+
+  - kicker: PoC
+    titre: Huit semaines pour produire six chiffres, pas une démonstration
+    timeline:
+      - ["S1", "Cadrage : périmètre, liste supervisée, accès, décisions ouvertes"]
+      - ["S2–S3", "Captation de deux sources + canaris sur chaque canal"]
+      - ["S4", "Modèle canonique, résolution d'identité, dédoublonnage"]
+      - ["S5–S6", "Réconciliation 3 niveaux, contrôles, exceptions, piste d'audit WORM"]
+      - ["S7", "Restitution : deux exercices à l'aveugle chronométrés"]
+      - ["S8", "Dossier de décision build"]
+    criteres:
+      titre: Les six chiffres du dossier de décision
+      items:
+        - Couverture de la population supervisée, 100 % des écarts expliqués
+        - Complétude par canal, avec la cause de chaque écart
+        - Délai de restitution médian et p95 sur tirages à l'aveugle
+        - Part des contrôles automatisés produisant une exception traçable
+        - Coût par million de messages, licences comprises
+        - Dépendances bloquantes pour l'industrialisation
+    note: >
+      Périmètre étroit — une population, deux sources — mais mêmes contrats d'interface, mêmes
+      contrôles et mêmes critères de sortie que la cible : c'est ce qui permet de promouvoir le PoC
+      au lieu de le refaire. Un prototype exécutable de ce moteur de réconciliation existe déjà,
+      sur données synthétiques, avec ses quinze contrôles et sa piste d'audit hash-chaînée.

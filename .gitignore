@@ -1,0 +1,6 @@
+# Sorties de génération (CV : HTML / PDF / PNG)
+cv/build/
+
+__pycache__/
+*.pyc
+recon/out/
