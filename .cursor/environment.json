@@ -1,0 +1,4 @@
+{
+  "name": "MedicalCity — Comex Deck",
+  "install": "python3 --version && google-chrome --version"
+}
