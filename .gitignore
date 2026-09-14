@@ -3,3 +3,4 @@ cv/build/
 
 __pycache__/
 *.pyc
+recon/out/
