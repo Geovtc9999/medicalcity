@@ -14,7 +14,7 @@ Le recruteur a écrit court : réponds court. Trois choses seulement doivent pas
 >
 > Sur mon parcours : `[[À COMPLÉTER : une phrase — X ans en architecture et intégration de données, dont Y en banque / marchés financiers, en citant une institution]]`. Aujourd'hui je conçois et développe une plateforme de données en environnement fortement réglementé — golden record multi-sources, journal WORM hash-chaîné, contrôles automatisés avec validation humaine tracée. Je suis resté hands-on : les prototypes sont de moi.
 >
-> J'ai mis par écrit ce que je proposerais pour le PoC — périmètre, modèle de réconciliation à trois niveaux, catalogue de contrôles et critères de sortie chiffrés — une note de trois pages que je peux vous transmettre ou dérouler en entretien avec le client.
+> J'ai mis par écrit ce que je proposerais pour le PoC — périmètre, modèle de réconciliation à trois niveaux, catalogue de contrôles et critères de sortie chiffrés — une note d'architecture que je peux vous transmettre ou dérouler en entretien avec le client.
 >
 > Sur les modalités : Paris sans difficulté, disponible pour une montée en charge à partir d'octobre 2026, `[[À COMPLÉTER : statut et TJM]]`. Anglais : `[[À COMPLÉTER : niveau, en nommant une situation professionnelle réelle]]`.
 >

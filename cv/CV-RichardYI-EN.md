@@ -90,7 +90,7 @@ Stack : [[TO COMPLETE: technologies]]
 
 ## Available on request
 
-A 3-page architecture note — "PoC for E-Communications Recordkeeping & Reconciliation: scope, reconciliation model, control catalogue, exit criteria" — written for this programme.
+An architecture note — "PoC for E-Communications Recordkeeping & Reconciliation: scope, reconciliation model, control catalogue, exit criteria" — written for this programme.
 
 ## Education
 

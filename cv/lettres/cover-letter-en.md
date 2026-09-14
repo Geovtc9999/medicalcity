@@ -12,7 +12,7 @@ For the client-side interview loop: the bank's own hiring managers, or a recruit
 >
 > Background: `[[TO COMPLETE: one sentence — X years in data architecture and integration, of which Y in banking / capital markets, naming one institution]]`. I currently design and build a data platform in a heavily regulated environment — multi-source golden record, hash-chained WORM journal, automated controls with recorded human sign-off. I have stayed hands-on: the prototypes are mine.
 >
-> I have written up what I would propose for the PoC — scope, a three-level reconciliation model, a control catalogue and quantified exit criteria. It is a three-page note I am happy to share or to walk through with the team.
+> I have written up what I would propose for the PoC — scope, a three-level reconciliation model, a control catalogue and quantified exit criteria. It is a short architecture note I am happy to share or to walk through with the team.
 >
 > Practicalities: Paris is straightforward, I am available for a progressive ramp-up from October 2026, `[[TO COMPLETE: contracting status and rate]]`. Working language: `[[TO COMPLETE: English level, naming a real professional situation]]`.
 >

@@ -20,22 +20,27 @@ Rien n'a été inventé. Aucune expérience, aucun employeur, aucune date, aucun
 | [`data/cv-fr.yml`](data/cv-fr.yml) · [`data/cv-en.yml`](data/cv-en.yml) | **La source de vérité. C'est ici qu'on écrit.** |
 | [`poste/annonce.md`](poste/annonce.md) | L'annonce + ce qu'elle dit entre les lignes |
 | [`poste/grille-exigences.md`](poste/grille-exigences.md) | Chaque exigence → la preuve attendue → où elle se trouve → statut |
-| [`annexes/poc-ecomms-recordkeeping.md`](annexes/poc-ecomms-recordkeeping.md) | **La pièce qui différencie** : note d'architecture du PoC, 3 pages |
+| [`annexes/poc-ecomms-recordkeeping.md`](annexes/poc-ecomms-recordkeeping.md) | **La pièce qui différencie** : note d'architecture du PoC |
+| [`annexes/deck-lecture-programme.yml`](annexes/deck-lecture-programme.yml) | Deck 5 slides « ma lecture du programme », pour l'entretien client |
 | [`annexes/mots-cles-ats.md`](annexes/mots-cles-ats.md) | Mots-clés de l'annonce, lexique FR/EN, formulations qui portent |
 | [`annexes/entretien.md`](annexes/entretien.md) | 10 questions probables, 12 questions à poser, 5 signaux d'alerte |
 | [`lettres/reponse-recruteur-fr.md`](lettres/reponse-recruteur-fr.md) | Le mail de réponse, prêt à envoyer |
 | [`lettres/cover-letter-en.md`](lettres/cover-letter-en.md) | Version anglaise, pour la boucle côté client |
+| [`../recon/`](../recon/README.md) | **Prototype exécutable** du moteur de réconciliation à trois niveaux, sur données synthétiques |
 
-## Générer le CV
+## Générer les documents
 
 ```bash
-python3 tools/build_cv.py            # FR + EN : Markdown, HTML, PDF A4
-python3 tools/build_cv.py fr --png   # une langue + un aperçu image
-python3 tools/build_cv.py --strict   # échoue tant qu'il reste un [[trou]]
+python3 tools/build_cv.py                                        # CV FR + EN : Markdown, HTML, PDF A4
+python3 tools/build_cv.py fr --png                               # une langue + un aperçu image
+python3 tools/build_cv.py --strict                               # échoue tant qu'il reste un [[trou]]
+python3 tools/build_doc.py cv/annexes/poc-ecomms-recordkeeping.md   # la note en PDF présentable
+python3 tools/build_slides.py --png                              # le deck 16:9 en PDF
+python3 -m recon --verifie                                       # le prototype + vérification des détections
 ```
 
-Sortie dans `cv/build/` (non versionné) : `CV-RichardYI-FR.pdf`, `.html`, et le `.md` régénéré dans `cv/`.
-Dépendances : Python 3, PyYAML, et Chrome / Chromium pour le PDF (sans Chrome, le Markdown et le HTML sont produits quand même).
+Sortie dans `cv/build/` (non versionné) : PDF, HTML et aperçus PNG ; les `.md` du CV sont régénérés dans `cv/`.
+Dépendances : Python 3, PyYAML, et Chrome / Chromium pour les PDF (sans Chrome, le Markdown et le HTML sont produits quand même). Le prototype, lui, n'utilise que la bibliothèque standard.
 
 Tant qu'il reste un `[[trou]]`, le PDF porte un filigrane **BROUILLON** et un compteur en haut de page : c'est un garde-fou, pas une décoration — il rend impossible l'envoi accidentel d'un CV à trous.
 
@@ -54,7 +59,7 @@ Trois règles, dans l'ordre d'importance.
 3. **Réordonner les expériences** : si tu as une expérience en banque ou marchés financiers, elle passe **avant** MedicalCity. Le filtre secteur se joue dans les six premières lignes.
 4. **Reporter les mêmes faits dans `data/cv-en.yml`** puis relire le lexique de [`mots-cles-ats.md`](annexes/mots-cles-ats.md) § 2.
 5. **Envoyer le mail** de [`lettres/reponse-recruteur-fr.md`](lettres/reponse-recruteur-fr.md), CV FR en pièce jointe, note PoC gardée pour le deuxième échange.
-6. **Préparer l'entretien** avec [`annexes/entretien.md`](annexes/entretien.md) : deux récits chiffrés suffisent, un rapprochement difficile et un contrôle automatisé.
+6. **Préparer l'entretien** avec [`annexes/entretien.md`](annexes/entretien.md) : deux récits chiffrés suffisent, un rapprochement difficile et un contrôle automatisé. Le deck 5 slides et le prototype sont là pour l'entretien client, pas pour le premier appel — sortir un prototype trop tôt donne l'impression d'avoir déjà décidé de l'architecture.
 
 ## Le point à arbitrer, qui n'est pas technique
 

@@ -90,7 +90,7 @@ Stack : [[À COMPLÉTER : technologies]]
 
 ## Pièce joignable
 
-Note d'architecture de 3 pages — « PoC E-Communications Recordkeeping & Reconciliation : périmètre, modèle de réconciliation, catalogue de contrôles, critères de sortie » — rédigée pour ce programme et disponible sur demande.
+Note d'architecture — « PoC E-Communications Recordkeeping & Reconciliation : périmètre, modèle de réconciliation, catalogue de contrôles, critères de sortie » — rédigée pour ce programme et disponible sur demande.
 
 ## Formation
 

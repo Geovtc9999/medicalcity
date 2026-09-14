@@ -34,7 +34,8 @@ Volontairement étroit, mais complet **de bout en bout** — c'est la seule faç
 ## 3. Chaîne cible en six étages
 
 ```
-[0] Référentiels        RH, annuaire/AD, entitlements Bloomberg, licences O365, liste supervisée (Compliance)
+[0] Référentiels        RH, annuaire/AD, entitlements Bloomberg, licences O365,
+                        liste supervisée tenue par Compliance
                         → construction du PÉRIMÈTRE ATTENDU, versionné par jour
         |
 [1] Captation           journalisation Exchange/EXO · API d'export Teams · flux Bloomberg
@@ -172,6 +173,12 @@ Six questions à poser dès le premier atelier. Elles sont dans [`entretien.md`]
 ## 13. Indicateurs à tenir après la mise en production
 
 Couverture (part de la population supervisée effectivement captée) · complétude par canal · **ancienneté du plus vieil écart inexpliqué** — le meilleur indicateur unique du programme · aging des exceptions par propriétaire · délai de restitution p95 · taux d'exécution des contrôles · coût par million de messages.
+
+## 14. Un prototype existe déjà
+
+Le moteur décrit ici — trois niveaux de réconciliation, les quinze contrôles, la file d'exceptions avec propriétaire et aging, la piste d'audit hash-chaînée, les canaris et les tirages de restitution — est implémenté et exécutable sur données synthétiques : [`../../recon/`](../../recon/README.md). Le générateur y injecte des défauts qui portent chacun l'identifiant du contrôle censé les détecter, et les tests échouent si un contrôle cesse de trouver le sien.
+
+Ce n'est pas une offre d'outil : c'est la démonstration que le raisonnement tient jusqu'au code, et une base de discussion pour le cadrage — notamment sur les deux partis pris qui font toute la différence, mesurer le rappel contre la source plutôt que contre l'archive, et disposer d'une mesure indépendante des décomptes de la source.
 
 ---
 
