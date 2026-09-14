@@ -1,0 +1,209 @@
+# CV Richard YI — version FR, ciblée « Lead Solution Architect / Technical Lead »
+# Programme E-Communications Recordkeeping & Reconciliation — banque internationale, Paris.
+#
+# Source de vérité du CV. Rendu HTML/PDF/Markdown via : python3 tools/build_cv.py fr
+# Tout ce qui est entre [[doubles crochets]] est un trou à combler par Richard : le
+# générateur les surligne dans le PDF et refuse de produire une version « finale »
+# (--strict) tant qu'il en reste un. Ne jamais remplacer un [[...]] par une
+# approximation flatteuse : voir cv/README.md § Règle de sincérité.
+
+meta:
+  lang: fr
+  nom: Richard YI
+  titre: Lead Solution Architect — Data, Recordkeeping & Réconciliation
+  cible: >
+    Candidature — Lead Solution Architect / Technical Lead,
+    programme E-Communications Recordkeeping & Reconciliation (Paris, oct. 2026)
+  contact:
+    - Paris, France — disponible sur site
+    - "[[À COMPLÉTER : téléphone]]"
+    - "[[À COMPLÉTER : e-mail]]"
+    - "[[À COMPLÉTER : LinkedIn]]"
+    - "Français (natif) · Anglais [[À COMPLÉTER : niveau + contexte]]"
+
+profil:
+  titre: Profil
+  texte: >
+    Architecte de solutions data, hands-on. Je conçois et je fais atterrir des chaînes de données
+    réglementées de bout en bout : captation multi-sources, normalisation, rapprochement,
+    contrôles automatisés, piste d'audit inaltérable, restitution à la demande.
+    [[À COMPLÉTER : X ans d'expérience, dont Y en banque / marchés financiers — nommer ici les deux
+    institutions les plus fortes de ton parcours, c'est la ligne que le recruteur lit en premier]].
+    Je prototype moi-même, je documente le lineage de ce que je livre, et je tiens le sujet
+    devant une DSI comme devant des équipes Operations, Risk et Compliance.
+
+apport:
+  titre: Ce que j'apporte sur ce programme
+  puces:
+    - titre: Cohérence end-to-end, pas une collection de connecteurs
+      texte: >
+        Un modèle de données unique des sources (Exchange/O365, Teams, Bloomberg IB & MSG, voix, mobile)
+        jusqu'aux systèmes d'archivage, et un contrat d'interface explicite par source :
+        format, clés, horodatage, complétude attendue, comportement en cas de retard ou de rejeu.
+    - titre: Complétude démontrable à trois niveaux
+      texte: >
+        Réconciliation des populations (RH / annuaire / entitlements contre comptes réellement journalisés),
+        des volumétries (compté à la source contre ingéré contre archivé) et de la fidélité
+        (pièces jointes, éditions, suppressions, fils, participants). Chaque écart est daté, imputé, expliqué.
+    - titre: Des contrôles qui produisent des exceptions traçables
+      texte: >
+        Chaque contrôle a un propriétaire, un seuil, une fréquence, une file d'exceptions et un SLA.
+        Une exception est un objet de données avec un cycle de vie, pas un e-mail de relance.
+    - titre: Une piste d'audit qui tient sans la bonne foi de l'exploitant
+      texte: >
+        Journal append-only hash-chaîné, stockage immuable (WORM), pack de preuve reconstituable
+        à froid : ce qui a été capté, par quel chemin, quand, avec quelle règle dans quelle version.
+    - titre: La retrievability se mesure, elle ne se promet pas
+      texte: >
+        Le seul test qui compte est de retrouver et d'exporter un périmètre de communications dans le
+        délai imposé, à l'aveugle, en enregistrant le temps et l'exhaustivité. Je fais entrer ce test dans le PoC.
+    - titre: Un PoC conçu pour être promu ou jeté
+      texte: >
+        Périmètre réduit — une population, deux sources — mais mêmes contrats d'interface, mêmes contrôles
+        et mêmes critères de sortie que la cible, afin que la décision de build ne se prenne pas sur une démo.
+
+competences:
+  titre: Compétences clés
+  groupes:
+    - titre: Architecture & intégration de données
+      items: >
+        Architecture cible et trajectoire · contrats d'interface et modélisation
+        · ingestion batch et quasi-temps réel, CDC, event streaming
+        · orchestration et ordonnancement · idempotence, rejeu, reprise sur incident, backfill
+        · gestion des arrivées tardives et de l'ordre des événements
+        · documentation d'architecture (C4, ADR) [[À COMPLÉTER : garder les technologies que tu maîtrises réellement — Kafka, Spark, dbt, Airflow, Control-M, SQL, Python, cloud Azure/AWS/GCP — et supprimer les autres]]
+    - titre: Matching & réconciliation
+      items: >
+        Rapprochement déterministe et probabiliste · résolution d'identité
+        (personne ↔ comptes ↔ terminaux ↔ population supervisée)
+        · définition des clés, tolérances et règles de bris · réconciliation de complétude et de volumétrie
+        · break management, requalification, aging des écarts · contrôle du contrôle (réconciliation de la réconciliation)
+    - titre: Data quality & automatisation des contrôles
+      items: >
+        Dimensions complétude, exactitude, unicité, fraîcheur, conformité de format
+        · contrôles embarqués dans le pipeline plutôt qu'en aval · seuils, scoring, tendance
+        · automatisation des contrôles de niveau 1 et production de la preuve pour le niveau 2
+        · tableaux de contrôle pour Operations et Compliance
+    - titre: Data lineage & gouvernance
+      items: >
+        Lineage technique et fonctionnel · traçabilité exigence réglementaire → règle → champ → source
+        · versioning des règles et rejouabilité de l'historique · dictionnaire de données et propriété
+        · catalogage et cartographie [[À COMPLÉTER : Collibra, Informatica, Solidatus, OpenMetadata, DataHub — ne garder que le vécu]]
+    - titre: Recordkeeping & archivage des communications électroniques
+      items: >
+        Journalisation Exchange / Exchange Online · Teams (API d'export Graph, Purview, pièces jointes déportées)
+        · Bloomberg IB et MSG, entitlements, Vault · rétention, légal hold, politiques de conservation
+        · immutabilité WORM (Object Lock, blob immuable) · indexation, recherche et export e-discovery
+        · dédoublonnage et conservation de la preuve de distribution
+    - titre: Réglementaire traduit en exigences techniques
+      items: >
+        MiFID II art. 16(7) et règlement délégué (UE) 2017/565 art. 76 (conservation 5 ans, 7 sur demande de l'autorité)
+        · SEC 17a-4(f) et l'alternative « audit trail » ouverte par les amendements de 2022
+        · FINRA 3110 / 4511, CFTC 1.31 et 1.35 · RGPD : minimisation, durées, droits des collaborateurs, doctrine CNIL
+        · DORA : dépendance à un archiveur tiers, testabilité, plan de sortie
+    - titre: Delivery & interlocuteurs
+      items: >
+        Cadrage et conception de PoC · build, plan de recette, UAT, bascule en production
+        · animation d'ateliers et comitologie · interface IT / Operations / Risk / Compliance
+        · arbitrage entre exigence réglementaire, faisabilité et délai · conduite en anglais professionnel
+
+experiences:
+  titre: Expérience
+  # ORDRE : si tu as une expérience en banque / marchés financiers, elle passe AVANT MedicalCity.
+  # Le recruteur filtre sur le secteur dans les six premières lignes du CV.
+  entrees:
+    - poste: "[[À COMPLÉTER : intitulé — ex. Solution Architect Data / Tech Lead]]"
+      org: "[[À COMPLÉTER : banque ou institution financière]]"
+      lieu: "[[À COMPLÉTER : ville]]"
+      dates: "[[À COMPLÉTER : période]]"
+      contexte: >
+        [[À COMPLÉTER : en une phrase — quel domaine (marchés, risque, conformité, back-office),
+        quel périmètre de données, combien de sources, quelle volumétrie, quelle taille d'équipe.]]
+      puces:
+        - "[[À COMPLÉTER : le rapprochement le plus difficile que tu as conçu. Deux sources censées dire la même chose, les clés retenues, le taux de match atteint, ce que tu as fait des bris.]]"
+        - "[[À COMPLÉTER : un contrôle manuel que tu as automatisé. Avant : combien de temps, par qui, avec quel taux d'erreur. Après : la même mesure.]]"
+        - "[[À COMPLÉTER : une exigence réglementaire que tu as transformée en exigence technique testable, et comment tu as prouvé qu'elle était tenue.]]"
+        - "[[À COMPLÉTER : le passage en production. Ce que tu as porté jusqu'à l'UAT, la bascule, ce qui a cassé et comment tu l'as tenu.]]"
+      stack: "[[À COMPLÉTER : technologies réellement utilisées]]"
+    - poste: "[[À COMPLÉTER : intitulé]]"
+      org: "[[À COMPLÉTER : organisation — banque, marchés, ou environnement réglementé]]"
+      lieu: "[[À COMPLÉTER : ville]]"
+      dates: "[[À COMPLÉTER : période]]"
+      contexte: >
+        [[À COMPLÉTER : même logique. Si le poste est ancien, deux puces suffisent — garde la place
+        pour ce qui est le plus proche de la réconciliation, du lineage et de la data quality.]]
+      puces:
+        - "[[À COMPLÉTER : réalisation 1, chiffrée]]"
+        - "[[À COMPLÉTER : réalisation 2, chiffrée]]"
+      stack: "[[À COMPLÉTER : technologies]]"
+    - poste: Président — architecte de la plateforme
+      org: MedicalCity SASU
+      lieu: Paris
+      dates: "[[À COMPLÉTER : mois]] 2026 — aujourd'hui"
+      contexte: >
+        Infrastructure data en environnement fortement réglementé (données de santé) : conception et
+        réalisation de la plateforme, du cadre de conformité et de la trajectoire technique. Rôle
+        d'architecte hands-on autant que de dirigeant.
+      puces:
+        - >
+          **Golden record multi-sources (Bayon).** Chaîne d'ingestion, mapping vers un modèle canonique
+          normalisé FHIR R4, résolution d'identité et constitution d'un enregistrement de référence
+          en moins de 30 s ; livrée en PoC forfaitaire de 8 semaines avec jalons de recette contractuels
+          (40 % commande / 40 % mi-parcours / 20 % recette).
+        - >
+          **Piste d'audit inaltérable.** Journal append-only hash-chaîné et journalisation WORM de chaque
+          décision automatisée : rejouer à froid ce qui a été décidé, par quelle règle et sur quelle donnée.
+        - >
+          **Automatisation des contrôles avec gestion des exceptions.** Paliers de décision explicites
+          — AUTO, RECOMMENDED, MANDATORY — le dernier imposant une validation humaine tracée. Le silence
+          n'est pas un accord : une recommandation non signée sous 48 h est un refus. C'est un modèle de
+          contrôle de niveau 1 automatisé avec file d'exceptions et séparation des rôles.
+        - >
+          **Exigences réglementaires traduites en contraintes d'architecture.** Hébergement en France,
+          contrats de sous-traitance (DPA), interdiction stricte de données sensibles dans le dépôt de code,
+          dossier d'hébergement de données de santé, registre AI Act tenu à jour — chaque exigence
+          convertie en règle vérifiable dans la chaîne de livraison plutôt qu'en engagement déclaratif.
+        - >
+          **Interface avec des fonctions de contrôle.** Conception et animation d'une comitologie
+          hebdomadaire séparant l'exécution des décisions réservées (contrats, données de santé,
+          engagements), sur le modèle d'un comité de risque.
+      stack: "[[À COMPLÉTER : stack réelle de la plateforme — langages, ingestion, stockage, CI, cloud]]"
+    - poste: "[[À COMPLÉTER : rôle chez GEOVTC]]"
+      org: GEOVTC
+      lieu: "[[À COMPLÉTER : ville]]"
+      dates: "[[À COMPLÉTER : période]]"
+      contexte: >
+        [[À VÉRIFIER — reconstitué à partir de tes documents internes : offre d'« IA factory » et de
+        diagnostic court pour ETI. Corrige ou supprime ce bloc s'il ne correspond pas.]]
+      puces:
+        - "[[À COMPLÉTER : ce que tu as construit et pour quels volumes / clients]]"
+        - "[[À COMPLÉTER : ce qui est transposable au poste — intégration de données, automatisation de contrôles, industrialisation]]"
+      stack: "[[À COMPLÉTER : technologies]]"
+
+annexes_liees:
+  titre: Pièce joignable
+  texte: >
+    Note d'architecture de 3 pages — « PoC E-Communications Recordkeeping & Reconciliation :
+    périmètre, modèle de réconciliation, catalogue de contrôles, critères de sortie » — rédigée pour ce
+    programme et disponible sur demande.
+
+formation:
+  titre: Formation
+  entrees:
+    - "[[À COMPLÉTER : diplôme, établissement, année]]"
+    - "[[À COMPLÉTER : diplôme ou certification complémentaire — les certifications cloud / architecture / data governance comptent ici]]"
+
+langues:
+  titre: Langues
+  entrees:
+    - Français — langue maternelle
+    - "Anglais — [[À COMPLÉTER : niveau. Ne pas écrire « courant » sans preuve : nomme la situation réelle (comitologie en anglais, équipe offshore, client anglophone, mission à l'étranger). C'est éliminatoire sur ce poste.]]"
+    - "[[À COMPLÉTER ou supprimer : autre langue]]"
+
+disponibilite:
+  titre: Disponibilité & modalités
+  entrees:
+    - Paris et Île-de-France, présence sur site
+    - Démarrage compatible avec une montée en charge progressive à partir d'octobre 2026
+    - "[[À COMPLÉTER : statut de facturation — société, portage, salarié]]"
+    - "[[À COMPLÉTER : TJM cible et nombre de jours par semaine]]"
